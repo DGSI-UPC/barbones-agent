@@ -2,8 +2,8 @@ services:
   app:
     build: .
     container_name: barbones_agent_app
-    volumes:
-      - .:/app
+    # volumes:
+    #   - .:/app  # Temporarily commented out for diagnosis
     # If you switch to chromadb.PersistentClient(path="/app/chroma_db_data") in tools.py,
     # you might want to add a volume for persistence:
     #  - chroma_data:/app/chroma_db_data

@@ -8,7 +8,14 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+RUN python -m pip install --upgrade pip && \
+    echo "---- Contents of requirements.txt during build ----" && \
+    cat requirements.txt && \
+    echo "--------------------------------------------------" && \
+    pip install --no-cache-dir -r requirements.txt && \
+    echo "---- Verifying bs4 installation during build ----" && \
+    python -c "from bs4 import BeautifulSoup; print('SUCCESS: bs4.BeautifulSoup imported successfully during build.')" && \
+    echo "--------------------------------------------------"
 
 # Copy the current directory contents into the container at /app
 COPY tools.py .
